@@ -34,7 +34,6 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="TuringMachineTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\KompiuteriuArchitektura_Lab01\InstructionLine.cpp" />

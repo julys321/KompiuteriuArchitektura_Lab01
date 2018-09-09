@@ -8,5 +8,6 @@ public:
 	TuringMachine();
 	~TuringMachine();
 	int makeStep();
+	void fillTape(std::string tape);
 };
 
