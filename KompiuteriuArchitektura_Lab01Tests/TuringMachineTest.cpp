@@ -3,6 +3,8 @@
 #include "../KompiuteriuArchitektura_Lab01/InstructionLine.cpp"
 #include "../KompiuteriuArchitektura_Lab01/Tape.cpp"
 #include "../KompiuteriuArchitektura_Lab01/Character.cpp"
+#include "../KompiuteriuArchitektura_Lab01/Program.cpp"
+#include "../KompiuteriuArchitektura_Lab01/FileInteractor.cpp"
 #include <vector>
 
 TuringMachine createTuringMachine(std::string tape) {
@@ -16,7 +18,6 @@ TuringMachine createTuringMachine(std::string tape, int headPosition) {
 	turingMachine.head = headPosition;
 	return turingMachine;
 }
-
 
 TEST(InstructionLine, conststructorZeroes) {
 	InstructionLine instructionLine("0", '0', '0', '*', "0");
@@ -129,118 +130,139 @@ TEST(Tape, convertToString) {
 
 	ASSERT_EQ(tape.getAsString(), "k_AD0");
 }
-TEST(TuringMachineMakeStep, MakeStepThatDoesNothing) {
+TEST(TuringMachineRunLine, RunLineThatDoesNothing) {
 	TuringMachine turingMachine = createTuringMachine("000");
 	InstructionLine instructionLine("0", '0', '0', '*', "0");
 
-	turingMachine.makeStep(instructionLine);
+	turingMachine.runLine(instructionLine);
 
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, '0');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
-TEST(TuringMachineMakeStep, changeZeroToOne) {
+TEST(TuringMachineRunLine, changeZeroToOne) {
 	TuringMachine turingMachine = createTuringMachine("000");
 	InstructionLine instructionLine("0", '0', '1', '*', "0");
 
-	turingMachine.makeStep(instructionLine);
+	turingMachine.runLine(instructionLine);
 
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, '1');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
-TEST(TuringMachineMakeStep, leaveZeroAsZero) {
+TEST(TuringMachineRunLine, leaveZeroAsZero) {
 	TuringMachine turingMachine = createTuringMachine("000");
 	InstructionLine instructionLine("0", '0', '*', '*', "0");
 
-	turingMachine.makeStep(instructionLine);
+	turingMachine.runLine(instructionLine);
 
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, '0');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
-TEST(TuringMachineMakeStep, leaveBAsB) {
+TEST(TuringMachineRunLine, leaveBAsB) {
 	TuringMachine turingMachine = createTuringMachine("B00");
 	InstructionLine instructionLine("0", 'B', '*', '*', "0");
 
-	turingMachine.makeStep(instructionLine);
+	turingMachine.runLine(instructionLine);
 
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, 'B');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
-TEST(TuringMachineMakeStep, moveHeadRight) {
+TEST(TuringMachineRunLine, moveHeadRight) {
 	TuringMachine turingMachine;
 	InstructionLine instructionLine("0", 'B', '*', 'r', "0");
 
-	turingMachine.makeStep(instructionLine);
+	turingMachine.runLine(instructionLine);
 
 	ASSERT_EQ(turingMachine.head, 1);
 }
-TEST(TuringMachineMakeStep, moveHeadLeft) {
+TEST(TuringMachineRunLine, moveHeadLeft) {
 	TuringMachine turingMachine;
 	InstructionLine instructionLine("0", 'B', '*', 'l', "0");
 
-	turingMachine.makeStep(instructionLine);
+	turingMachine.runLine(instructionLine);
 
 	ASSERT_EQ(turingMachine.head, -1);
 }
-TEST(TuringMachineMakeStep, headStaysInPlace) {
+TEST(TuringMachineRunLine, headStaysInPlace) {
 	TuringMachine turingMachine;
 	InstructionLine instructionLine("0", 'B', '*', '*', "0");
 
-	turingMachine.makeStep(instructionLine);
+	turingMachine.runLine(instructionLine);
 
 	ASSERT_EQ(turingMachine.head, 0);
 }
+TEST(Program, getLinesOfState) {
+	Program program;
+	program.instructionLines.push_back(InstructionLine("0", '0', '0', 'r', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'l', "0"));
+	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
+
+	std::vector<InstructionLine> linesOfState = program.getLinesOfState("0");
+
+	ASSERT_EQ(linesOfState.size(), 2);
+}
 TEST(TuringMachineRun, emptyProgram) {
 	TuringMachine turingMachine = createTuringMachine("B00");
-	std::vector<InstructionLine> program;
+	Program program;
 
-	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("B00").tape));
+	Tape resultingTape = turingMachine.run(program);
+
+	ASSERT_TRUE(resultingTape.equals(createTuringMachine("B00").tape));
 }
 TEST(TuringMachineRun, oneLineProgram) {
 	TuringMachine turingMachine = createTuringMachine("B00");
-	std::vector<InstructionLine> program;
-	program.push_back(InstructionLine("0", 'B', 'A', 'r', "Halt"));
+	Program program;
+	program.instructionLines.push_back(InstructionLine("0", 'B', 'A', 'r', "Halt"));
 
-	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("A00").tape));
+	TuringMachine expectedTuringMachine = createTuringMachine("A00");
+	Tape resultingTape = turingMachine.run(program);
+
+	ASSERT_TRUE(resultingTape.equals(expectedTuringMachine.tape));
 	ASSERT_EQ(turingMachine.head, 1);
-}
-TEST(TuringMachineRun, twoSameLineProgram) {
-	TuringMachine turingMachine = createTuringMachine("000");
-	std::vector<InstructionLine> program;
-	program.push_back(InstructionLine("0", '0', '1', 'r', "0"));
-	program.push_back(InstructionLine("0", '0', '1', 'r', "Halt"));
-
-	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("110").tape));
-	ASSERT_EQ(turingMachine.head, 2);
 }
 TEST(TuringMachineRun, twoLineProgramSameState) {
 	TuringMachine turingMachine = createTuringMachine("010");
-	std::vector<InstructionLine> program;
-	program.push_back(InstructionLine("0", '0', '1', 'r', "0"));
-	program.push_back(InstructionLine("0", '1', '0', 'r', "Halt"));
+	Program program;
+	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'r', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'r', "Halt"));
 
-	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("100").tape));
+	Tape resultingTape = turingMachine.run(program);
+
+	ASSERT_TRUE(resultingTape.equals(createTuringMachine("100").tape));
 	ASSERT_EQ(turingMachine.head, 2);
 }
 TEST(TuringMachineRun, twoLineProgramDiffState) {
 	TuringMachine turingMachine = createTuringMachine("010");
-	std::vector<InstructionLine> program;
-	program.push_back(InstructionLine("0", '0', '1', 'r', "1"));
-	program.push_back(InstructionLine("1", '1', '0', 'r', "Halt"));
+	Program program;
+	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'r', "1"));
+	program.instructionLines.push_back(InstructionLine("1", '1', '0', 'r', "Halt"));
 
-	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("100").tape));
+	Tape resultingTape = turingMachine.run(program);
+
+	ASSERT_TRUE(resultingTape.equals(createTuringMachine("100").tape));
 	ASSERT_EQ(turingMachine.head, 2);
 }
 TEST(TuringMachineRun, programWhereOneLineNeedsToBeExecutedTwice) {
-	TuringMachine turingMachine = createTuringMachine("01A");
-	std::vector<InstructionLine> program;
-	program.push_back(InstructionLine("0", '0', '0', 'r', "0"));
-	program.push_back(InstructionLine("0", '1', '0', 'l', "0"));
-	program.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
+	TuringMachine turingMachine = createTuringMachine("01BA");
+	Program program;
+	program.instructionLines.push_back(InstructionLine("0", '0', '0', 'r', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'l', "0"));
+	program.instructionLines.push_back(InstructionLine("0", 'B', '0', 'r', "1"));
+	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
-	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("000").tape));
-	ASSERT_EQ(turingMachine.head, 2);
-}
+	Tape resultingTape = turingMachine.run(program);
+
+	ASSERT_TRUE(resultingTape.equals(createTuringMachine("0000").tape));
+	ASSERT_EQ(turingMachine.head, 3);
+}/*
+TEST(FileInteractor, getTuringMashineFromInput) {
+	FileInteractor fileInteractor;
+	TuringMachine turingMachineA;
+	turingMachineA.head = -1;
+	turingMachineA  = fileInteractor.getTuringMashineFromFile("0.txt");
+	ASSERT_TRUE(turingMachineA.tape.equals(createTuringMachine("1001001").tape));
+	ASSERT_EQ(turingMachineA.head, 0);
+}*/

@@ -115,15 +115,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileInteractor.cpp" />
     <ClCompile Include="InstructionLine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Program.cpp" />
     <ClCompile Include="Tape.cpp" />
     <ClCompile Include="TuringMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileInteractor.h" />
     <ClInclude Include="InstructionLine.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Program.h" />
     <ClInclude Include="Tape.h" />
     <ClInclude Include="TuringMachine.h" />
   </ItemGroup>
@@ -131,6 +135,7 @@
     <None Include="1 lecture.pdf" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="0.txt" />
     <Text Include="1.txt" />
     <Text Include="2.txt" />
     <Text Include="3.txt" />

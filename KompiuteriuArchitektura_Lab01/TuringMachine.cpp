@@ -9,7 +9,7 @@ TuringMachine::TuringMachine() {
 TuringMachine::~TuringMachine() {
 }
 
-void TuringMachine::makeStep(InstructionLine instructionLine) {//ugly int
+void TuringMachine::runLine(InstructionLine instructionLine) {
 	if (instructionLine.nextSymbol != '*')
 		tape.setCharacterValueAtPosition(head, instructionLine.nextSymbol);
 	if (instructionLine.headMovementDirection != '*') {
@@ -20,9 +20,21 @@ void TuringMachine::makeStep(InstructionLine instructionLine) {//ugly int
 	}
 }
 
-Tape TuringMachine::run(std::vector<InstructionLine> program){
-	for (InstructionLine instructionLine : program) {
-		makeStep(instructionLine);
+Tape TuringMachine::run(Program program) {
+	if (program.instructionLines.size() > 0) {
+		std::string state = "0";
+		for (int i = 0; state != "Halt"; i++) {
+			std::vector<InstructionLine> linesOfCurrentState = program.getLinesOfState(state);
+			for (InstructionLine instructionLine : linesOfCurrentState) {
+				if (tape.characters[head].value == instructionLine.currentSymbol) {
+					runLine(instructionLine);
+					state = instructionLine.nextState;
+					break;
+				}
+			}
+		}
 	}
 	return this->tape;
 }
+
+

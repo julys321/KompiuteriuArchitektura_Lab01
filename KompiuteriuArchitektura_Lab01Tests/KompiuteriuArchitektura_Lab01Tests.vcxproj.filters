@@ -8,9 +8,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="inputDataMock.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
 </Project>
