@@ -13,3 +13,12 @@ Character::Character(int position, char value) {
 
 Character::~Character() {
 }
+
+bool Character::equals(Character character) {
+	if (this->position != character.position)
+		return false;
+	else if (this->value != character.value)
+		return false;
+	else
+		return true;
+}

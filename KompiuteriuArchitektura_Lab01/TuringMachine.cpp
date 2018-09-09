@@ -21,3 +21,7 @@ int TuringMachine::makeStep(InstructionLine instructionLine) {//ugly int
 
 	return 0;
 }
+
+Tape TuringMachine::run(std::vector<InstructionLine> program){
+	return this->tape;
+}

@@ -10,5 +10,6 @@ public:
 	TuringMachine();
 	~TuringMachine();
 	int makeStep(InstructionLine instructionLine);
+	Tape run(std::vector<InstructionLine> program);
 };
 

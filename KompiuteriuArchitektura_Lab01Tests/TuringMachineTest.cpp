@@ -1,9 +1,9 @@
 #include "pch.h"
-#include <vector>
 #include "../KompiuteriuArchitektura_Lab01/TuringMachine.cpp"
 #include "../KompiuteriuArchitektura_Lab01/InstructionLine.cpp"
 #include "../KompiuteriuArchitektura_Lab01/Tape.cpp"
 #include "../KompiuteriuArchitektura_Lab01/Character.cpp"
+#include <vector>
 
 TuringMachine createTuringMachine(std::string tape) {
 	TuringMachine turingMachine;
@@ -31,6 +31,17 @@ TEST(Character, constructor) {
 	Character character(0, '0');
 	ASSERT_EQ(character.position, 0);
 	ASSERT_EQ(character.value, '0');
+}
+TEST(Character, equal) {
+	Character character(0, '0');
+	ASSERT_TRUE(character.equals(character));
+}
+TEST(Character, notEqual) {
+	Character characterA(0, '0');
+	Character characterB(1, '0');
+	Character characterC(0, '1');
+	ASSERT_FALSE(characterA.equals(characterB));
+	ASSERT_FALSE(characterA.equals(characterC));
 }
 TEST(TuringMachine, headStartsAtZero) {
 	TuringMachine turingMachine;
@@ -72,6 +83,19 @@ TEST(Tape, fillRandom) {
 	ASSERT_EQ(tape.getCharacterAtPosition(0).value, 'A');
 	ASSERT_EQ(tape.getCharacterAtPosition(1).value, 'D');
 	ASSERT_EQ(tape.getCharacterAtPosition(2).value, '0');
+}
+TEST(Tape, notEqual) {
+	Tape tapeA;
+	tapeA.fill("AD0");
+	Tape tapeB;
+	tapeB.fill("AP0");
+	ASSERT_FALSE(tapeA.equals(tapeB));
+}
+TEST(Tape, equal) {
+	Tape tape;
+	tape.fill("AD0");
+
+	ASSERT_TRUE(tape.equals(tape));
 }
 TEST(TuringMachineMakeStep, MakeStepThatDoesNothing) {
 	TuringMachine turingMachine = createTuringMachine("000");
@@ -139,8 +163,7 @@ TEST(TuringMachineMakeStep, headStaysInPlace) {
 }
 /*TEST(TuringMachineRun, emptyProgram) {
 	TuringMachine turingMachine = createTuringMachine("B00");
-
 	std::vector<InstructionLine> program;
 
-	ASSERT_EQ(turingMachine.run(program), createTuringMachine("B00"););
+	ASSERT_EQ(turingMachine.run(program), createTuringMachine("B00").tape);
 }*/

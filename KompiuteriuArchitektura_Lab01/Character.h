@@ -7,5 +7,6 @@ public:
 	Character();
 	Character(int position, char value);
 	~Character();
+	bool equals(Character character);
 };
 

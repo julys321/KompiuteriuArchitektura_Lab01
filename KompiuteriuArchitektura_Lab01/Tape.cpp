@@ -36,3 +36,12 @@ void Tape::setCharacterValueAtPosition(int position, char value) {
 			}
 		}
 }
+
+bool Tape::equals(Tape tape){
+	for (int i = 0; i < characters.size(); i++) {
+		if (!characters[i].equals(tape.characters[i])){
+			return false;
+		}
+	}
+	return true;
+}

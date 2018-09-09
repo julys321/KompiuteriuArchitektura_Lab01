@@ -10,5 +10,6 @@ public:
 	void fill(std::string characters);
 	Character getCharacterAtPosition(int position);
 	void setCharacterValueAtPosition(int position, char value);
+	bool equals(Tape tape);
 };
 
