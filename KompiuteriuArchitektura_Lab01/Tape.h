@@ -11,5 +11,8 @@ public:
 	Character getCharacterAtPosition(int position);
 	void setCharacterValueAtPosition(int position, char value);
 	bool equals(Tape tape);
+	std::string getAsString();
+	Character getFirstCharacter();
+	std::vector<int> getCharactersPositions();
 };
 

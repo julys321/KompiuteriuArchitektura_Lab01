@@ -23,5 +23,8 @@ int TuringMachine::makeStep(InstructionLine instructionLine) {//ugly int
 }
 
 Tape TuringMachine::run(std::vector<InstructionLine> program){
+	for (InstructionLine instructionLine : program) {
+		makeStep(instructionLine);
+	}
 	return this->tape;
 }

@@ -10,6 +10,13 @@ TuringMachine createTuringMachine(std::string tape) {
 	turingMachine.tape.fill(tape);
 	return turingMachine;
 }
+TuringMachine createTuringMachine(std::string tape, int headPosition) {
+	TuringMachine turingMachine;
+	turingMachine.tape.fill(tape);
+	turingMachine.head = headPosition;
+	return turingMachine;
+}
+
 
 TEST(InstructionLine, conststructorZeroes) {
 	InstructionLine instructionLine("0", '0', '0', '*', "0");
@@ -97,6 +104,31 @@ TEST(Tape, equal) {
 
 	ASSERT_TRUE(tape.equals(tape));
 }
+TEST(Tape, getFirstCharacter) {
+	Tape tape;
+	tape.fill("AD0");
+	tape.setCharacterValueAtPosition(-10, 'k');
+
+	ASSERT_TRUE(tape.getFirstCharacter().equals(Character(-10, 'k')));
+}
+TEST(Tape, getCharactersPositions) {
+	Tape tape;
+	tape.fill("AD0");
+	tape.setCharacterValueAtPosition(-2, 'k');
+
+	std::vector<int> positions = tape.getCharactersPositions();
+	ASSERT_EQ(positions[0], -2);
+	ASSERT_EQ(positions[1], 0);
+	ASSERT_EQ(positions[2], 1);
+	ASSERT_EQ(positions[3], 2);
+}
+TEST(Tape, convertToString) {
+	Tape tape;
+	tape.fill("AD0");
+	tape.setCharacterValueAtPosition(-2, 'k');
+
+	ASSERT_EQ(tape.getAsString(), "k_AD0");
+}
 TEST(TuringMachineMakeStep, MakeStepThatDoesNothing) {
 	TuringMachine turingMachine = createTuringMachine("000");
 	InstructionLine instructionLine("0", '0', '0', '*', "0");
@@ -161,9 +193,54 @@ TEST(TuringMachineMakeStep, headStaysInPlace) {
 
 	ASSERT_EQ(turingMachine.head, 0);
 }
-/*TEST(TuringMachineRun, emptyProgram) {
+TEST(TuringMachineRun, emptyProgram) {
 	TuringMachine turingMachine = createTuringMachine("B00");
 	std::vector<InstructionLine> program;
 
-	ASSERT_EQ(turingMachine.run(program), createTuringMachine("B00").tape);
-}*/
+	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("B00").tape));
+}
+TEST(TuringMachineRun, oneLineProgram) {
+	TuringMachine turingMachine = createTuringMachine("B00");
+	std::vector<InstructionLine> program;
+	program.push_back(InstructionLine("0", 'B', 'A', 'r', "Halt"));
+
+	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("A00").tape));
+	ASSERT_EQ(turingMachine.head, 1);
+}
+TEST(TuringMachineRun, twoSameLineProgram) {
+	TuringMachine turingMachine = createTuringMachine("000");
+	std::vector<InstructionLine> program;
+	program.push_back(InstructionLine("0", '0', '1', 'r', "0"));
+	program.push_back(InstructionLine("0", '0', '1', 'r', "Halt"));
+
+	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("110").tape));
+	ASSERT_EQ(turingMachine.head, 2);
+}
+TEST(TuringMachineRun, twoLineProgramSameState) {
+	TuringMachine turingMachine = createTuringMachine("010");
+	std::vector<InstructionLine> program;
+	program.push_back(InstructionLine("0", '0', '1', 'r', "0"));
+	program.push_back(InstructionLine("0", '1', '0', 'r', "Halt"));
+
+	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("100").tape));
+	ASSERT_EQ(turingMachine.head, 2);
+}
+TEST(TuringMachineRun, twoLineProgramDiffState) {
+	TuringMachine turingMachine = createTuringMachine("010");
+	std::vector<InstructionLine> program;
+	program.push_back(InstructionLine("0", '0', '1', 'r', "1"));
+	program.push_back(InstructionLine("1", '1', '0', 'r', "Halt"));
+
+	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("100").tape));
+	ASSERT_EQ(turingMachine.head, 2);
+}
+TEST(TuringMachineRun, programWhereOneLineNeedsToBeExecutedTwice) {
+	TuringMachine turingMachine = createTuringMachine("01A");
+	std::vector<InstructionLine> program;
+	program.push_back(InstructionLine("0", '0', '0', 'r', "0"));
+	program.push_back(InstructionLine("0", '1', '0', 'l', "0"));
+	program.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
+
+	ASSERT_TRUE(turingMachine.run(program).equals(createTuringMachine("000").tape));
+	ASSERT_EQ(turingMachine.head, 2);
+}

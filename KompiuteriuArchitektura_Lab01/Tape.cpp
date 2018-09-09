@@ -1,5 +1,5 @@
 #include "Tape.h"
-
+#include <algorithm>
 
 Tape::Tape()
 {
@@ -27,7 +27,7 @@ Character Tape::getCharacterAtPosition(int position) {
 
 void Tape::setCharacterValueAtPosition(int position, char value) {
 	if (getCharacterAtPosition(position).value == '_')
-		characters.push_back(Character(position,value));
+		characters.push_back(Character(position, value));
 	else
 		for (int i = 0; i < characters.size(); i++) {
 			if (characters[i].position == position) {
@@ -37,11 +37,47 @@ void Tape::setCharacterValueAtPosition(int position, char value) {
 		}
 }
 
-bool Tape::equals(Tape tape){
+bool Tape::equals(Tape tape) {
 	for (int i = 0; i < characters.size(); i++) {
-		if (!characters[i].equals(tape.characters[i])){
+		if (!characters[i].equals(tape.characters[i])) {
 			return false;
 		}
 	}
 	return true;
+}
+
+std::string Tape::getAsString() {
+	std::string string;
+	Tape tape;
+	tape.characters = this->characters;
+	std::vector<int> positions = getCharactersPositions();
+	for (int i = 0; i < positions.size(); i++) {
+		int iPlus = i + 1;
+		string.push_back(tape.getCharacterAtPosition(positions[i]).value);
+		if (iPlus < positions.size()) {
+			int n = positions[iPlus] - positions[i] - 1;
+			for (int j = 0; j < n; j++) {
+				string.push_back('_');
+			}
+		}
+	}
+	return string;
+}
+
+Character Tape::getFirstCharacter() {
+	int firstCharacterPosition = characters[0].position;
+	for (int i = 1; i < characters.size(); i++) {
+		if (firstCharacterPosition > characters[i].position)
+			firstCharacterPosition = characters[i].position;
+	}
+	return getCharacterAtPosition(firstCharacterPosition);
+}
+
+std::vector<int> Tape::getCharactersPositions() {
+	std::vector<int> charactersPositions;
+	for (int i = 0; i < characters.size(); i++) {
+		charactersPositions.push_back(characters[i].position);
+	}
+	std::sort(charactersPositions.begin(), charactersPositions.end());
+	return charactersPositions;
 }
