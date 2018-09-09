@@ -3,23 +3,12 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="TuringMachineTest.cpp" />
-    <ClCompile Include="..\KompiuteriuArchitektura_Lab01\TuringMachine.cpp">
-      <Filter>ClassesFromOtherProjects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\KompiuteriuArchitektura_Lab01\InstructionLine.cpp">
-      <Filter>ClassesFromOtherProjects</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="ClassesFromOtherProjects">
-      <UniqueIdentifier>{10554c3e-7880-425f-adbd-3b433e069e35}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="1.txt" />

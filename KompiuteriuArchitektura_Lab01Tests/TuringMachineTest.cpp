@@ -1,6 +1,15 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/TuringMachine.h"
-#include "../KompiuteriuArchitektura_Lab01/InstructionLine.h"
+#include <vector>
+#include "../KompiuteriuArchitektura_Lab01/TuringMachine.cpp"
+#include "../KompiuteriuArchitektura_Lab01/InstructionLine.cpp"
+#include "../KompiuteriuArchitektura_Lab01/Tape.cpp"
+#include "../KompiuteriuArchitektura_Lab01/Character.cpp"
+
+TuringMachine createTuringMachine(std::string tape) {
+	TuringMachine turingMachine;
+	turingMachine.tape.fill(tape);
+	return turingMachine;
+}
 
 TEST(InstructionLine, conststructorZeroes) {
 	InstructionLine instructionLine("0", '0', '0', '*', "0");
@@ -18,59 +27,120 @@ TEST(InstructionLine, conststructorOnes) {
 	ASSERT_EQ(instructionLine.headMovementDirection, '*');
 	ASSERT_EQ(instructionLine.nextState, "01");
 }
+TEST(Character, constructor) {
+	Character character(0, '0');
+	ASSERT_EQ(character.position, 0);
+	ASSERT_EQ(character.value, '0');
+}
 TEST(TuringMachine, headStartsAtZero) {
 	TuringMachine turingMachine;
 	ASSERT_EQ(turingMachine.head, 0);
 }
-TEST(TuringMachineFillTape, Zeroes) {
+TEST(Tape, getCharacterValueAtPosition) {
 	TuringMachine turingMachine;
-	turingMachine.fillTape("000");
+	turingMachine.tape.characters.push_back(Character(2, 'i'));
 
-	ASSERT_EQ(turingMachine.tape[0], '0');
-	ASSERT_EQ(turingMachine.tape[1], '0');
-	ASSERT_EQ(turingMachine.tape[2], '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, 'i');
+}
+TEST(Tape, getEmptyCharacterValue) {
+	TuringMachine turingMachine;
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '_');
+}
+TEST(Tape, fillZeroes) {
+	Tape tape;
+	tape.fill("000");
+
+	ASSERT_EQ(tape.getCharacterAtPosition(0).value, '0');
+	ASSERT_EQ(tape.getCharacterAtPosition(1).value, '0');
+	ASSERT_EQ(tape.getCharacterAtPosition(2).value, '0');
+}
+TEST(Tape, setCharacterAtMinusTen) {
+	Tape tape;
+	tape.setCharacterValueAtPosition(-10, 'g');
+	ASSERT_EQ(tape.getCharacterAtPosition(-10).value, 'g');
+}
+TEST(Tape, setCharacterAtMinusTenWhenValueExists) {
+	Tape tape;
+	tape.setCharacterValueAtPosition(-10, 'g');
+	tape.setCharacterValueAtPosition(-10, 'a');
+	ASSERT_EQ(tape.getCharacterAtPosition(-10).value, 'a');
+}
+TEST(Tape, fillRandom) {
+	Tape tape;
+	tape.fill("AD0");
+
+	ASSERT_EQ(tape.getCharacterAtPosition(0).value, 'A');
+	ASSERT_EQ(tape.getCharacterAtPosition(1).value, 'D');
+	ASSERT_EQ(tape.getCharacterAtPosition(2).value, '0');
 }
 TEST(TuringMachineMakeStep, MakeStepThatDoesNothing) {
-	TuringMachine turingMachine;
-	turingMachine.fillTape("000");
+	TuringMachine turingMachine = createTuringMachine("000");
 	InstructionLine instructionLine("0", '0', '0', '*', "0");
 
 	turingMachine.makeStep(instructionLine);
 
-	ASSERT_EQ(turingMachine.tape[0], '0');
-	ASSERT_EQ(turingMachine.tape[1], '0');
-	ASSERT_EQ(turingMachine.tape[2], '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
 TEST(TuringMachineMakeStep, changeZeroToOne) {
-	TuringMachine turingMachine;
-	turingMachine.fillTape("000");
+	TuringMachine turingMachine = createTuringMachine("000");
 	InstructionLine instructionLine("0", '0', '1', '*', "0");
 
 	turingMachine.makeStep(instructionLine);
 
-	ASSERT_EQ(turingMachine.tape[0], '1');
-	ASSERT_EQ(turingMachine.tape[1], '0');
-	ASSERT_EQ(turingMachine.tape[2], '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, '1');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
 TEST(TuringMachineMakeStep, leaveZeroAsZero) {
-	TuringMachine turingMachine;
-	turingMachine.fillTape("000");
+	TuringMachine turingMachine = createTuringMachine("000");
 	InstructionLine instructionLine("0", '0', '*', '*', "0");
 
 	turingMachine.makeStep(instructionLine);
 
-	ASSERT_EQ(turingMachine.tape[0], '0');
-	ASSERT_EQ(turingMachine.tape[1], '0');
-	ASSERT_EQ(turingMachine.tape[2], '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
 TEST(TuringMachineMakeStep, leaveBAsB) {
-	TuringMachine turingMachine;
-	turingMachine.fillTape("B00");
+	TuringMachine turingMachine = createTuringMachine("B00");
 	InstructionLine instructionLine("0", 'B', '*', '*', "0");
 
 	turingMachine.makeStep(instructionLine);
 
-	ASSERT_EQ(turingMachine.tape[0], 'B');
-	ASSERT_EQ(turingMachine.tape[1], '0');
-	ASSERT_EQ(turingMachine.tape[2], '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, 'B');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
+	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
+TEST(TuringMachineMakeStep, moveHeadRight) {
+	TuringMachine turingMachine;
+	InstructionLine instructionLine("0", 'B', '*', 'r', "0");
+
+	turingMachine.makeStep(instructionLine);
+
+	ASSERT_EQ(turingMachine.head, 1);
+}
+TEST(TuringMachineMakeStep, moveHeadLeft) {
+	TuringMachine turingMachine;
+	InstructionLine instructionLine("0", 'B', '*', 'l', "0");
+
+	turingMachine.makeStep(instructionLine);
+
+	ASSERT_EQ(turingMachine.head, -1);
+}
+TEST(TuringMachineMakeStep, headStaysInPlace) {
+	TuringMachine turingMachine;
+	InstructionLine instructionLine("0", 'B', '*', '*', "0");
+
+	turingMachine.makeStep(instructionLine);
+
+	ASSERT_EQ(turingMachine.head, 0);
+}
+/*TEST(TuringMachineRun, emptyProgram) {
+	TuringMachine turingMachine = createTuringMachine("B00");
+
+	std::vector<InstructionLine> program;
+
+	ASSERT_EQ(turingMachine.run(program), createTuringMachine("B00"););
+}*/

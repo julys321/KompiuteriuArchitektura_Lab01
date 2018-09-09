@@ -117,10 +117,14 @@
   <ItemGroup>
     <ClCompile Include="InstructionLine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Tape.cpp" />
     <ClCompile Include="TuringMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InstructionLine.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Tape.h" />
     <ClInclude Include="TuringMachine.h" />
   </ItemGroup>
   <ItemGroup>
