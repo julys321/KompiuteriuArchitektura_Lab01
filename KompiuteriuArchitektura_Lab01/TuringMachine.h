@@ -7,9 +7,10 @@ class TuringMachine
 public:
 	Tape tape;
 	int head = 0;
+	std::string state = "0";
 	TuringMachine();
 	~TuringMachine();
-	int makeStep(InstructionLine instructionLine);
+	void makeStep(InstructionLine instructionLine);
 	Tape run(std::vector<InstructionLine> program);
 };
 

@@ -9,7 +9,7 @@ TuringMachine::TuringMachine() {
 TuringMachine::~TuringMachine() {
 }
 
-int TuringMachine::makeStep(InstructionLine instructionLine) {//ugly int
+void TuringMachine::makeStep(InstructionLine instructionLine) {//ugly int
 	if (instructionLine.nextSymbol != '*')
 		tape.setCharacterValueAtPosition(head, instructionLine.nextSymbol);
 	if (instructionLine.headMovementDirection != '*') {
@@ -18,8 +18,6 @@ int TuringMachine::makeStep(InstructionLine instructionLine) {//ugly int
 		else if (instructionLine.headMovementDirection == 'l')
 			head--;
 	}
-
-	return 0;
 }
 
 Tape TuringMachine::run(std::vector<InstructionLine> program){
