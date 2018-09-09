@@ -115,10 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="InstructionLine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TuringMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InstructionLine.h" />
     <ClInclude Include="TuringMachine.h" />
   </ItemGroup>
   <ItemGroup>

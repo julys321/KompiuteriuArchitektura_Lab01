@@ -6,9 +6,13 @@
     <ClCompile Include="..\KompiuteriuArchitektura_Lab01\TuringMachine.cpp">
       <Filter>ClassesFromOtherProjects</Filter>
     </ClCompile>
+    <ClCompile Include="..\KompiuteriuArchitektura_Lab01\InstructionLine.cpp">
+      <Filter>ClassesFromOtherProjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TuringMachineTest.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

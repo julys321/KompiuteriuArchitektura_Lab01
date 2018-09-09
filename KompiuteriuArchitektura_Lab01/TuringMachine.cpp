@@ -9,6 +9,6 @@ TuringMachine::TuringMachine(){
 TuringMachine::~TuringMachine(){
 }
 
-int TuringMachine::doNothing(){
+int TuringMachine::makeStep(){
 	return 0;
 }

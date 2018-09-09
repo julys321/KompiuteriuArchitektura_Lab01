@@ -7,6 +7,6 @@ public:
 	int head = 0;
 	TuringMachine();
 	~TuringMachine();
-	int doNothing();
+	int makeStep();
 };
 
