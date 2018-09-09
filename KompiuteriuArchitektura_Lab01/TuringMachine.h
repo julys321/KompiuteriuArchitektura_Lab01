@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "InstructionLine.h"
 class TuringMachine
 {
 public:
@@ -7,7 +8,7 @@ public:
 	int head = 0;
 	TuringMachine();
 	~TuringMachine();
-	int makeStep();
+	int makeStep(InstructionLine instructionLine);
 	void fillTape(std::string tape);
 };
 

@@ -9,7 +9,9 @@ TuringMachine::TuringMachine() {
 TuringMachine::~TuringMachine() {
 }
 
-int TuringMachine::makeStep() {
+int TuringMachine::makeStep(InstructionLine instructionLine) {
+	if (instructionLine.nextSymbol != '*')
+		tape[head] = instructionLine.nextSymbol;
 	return 0;
 }
 
