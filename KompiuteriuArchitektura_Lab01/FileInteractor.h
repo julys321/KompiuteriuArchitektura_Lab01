@@ -8,6 +8,6 @@ public:
 	TuringMachine getTuringMashineFromStream(std::stringstream& in);
 	TuringMachine getTuringMashineFromFile(std::string fileName);
 	Program getProgramFromStream(std::stringstream& in);
-	//Program getProgramFromStream(std::istream in);
+	Program getProgramFromFile(std::string fileName);
 };
 
