@@ -18,7 +18,6 @@ TuringMachine createTuringMachine(std::string tape, int headPosition) {
 	turingMachine.head = headPosition;
 	return turingMachine;
 }
-
 TEST(InstructionLine, conststructorZeroes) {
 	InstructionLine instructionLine("0", '0', '0', '*', "0");
 	ASSERT_EQ(instructionLine.currentState, "0");
@@ -100,10 +99,19 @@ TEST(Tape, notEqual) {
 	ASSERT_FALSE(tapeA.equals(tapeB));
 }
 TEST(Tape, equal) {
-	Tape tape;
-	tape.fill("AD0");
+	Tape tapeA;
+	tapeA.fill("AD0");
+	Tape tapeB;
+	tapeB.fill("AD0");
 
-	ASSERT_TRUE(tape.equals(tape));
+	ASSERT_TRUE(tapeA.equals(tapeB));
+}
+TEST(Tape, notEqualEmptyTape) {
+	Tape tapeA;
+	Tape tapeB;
+	tapeB.fill("AD0");
+
+	ASSERT_FALSE(tapeA.equals(tapeB));
 }
 TEST(Tape, getFirstCharacter) {
 	Tape tape;
@@ -257,12 +265,24 @@ TEST(TuringMachineRun, programWhereOneLineNeedsToBeExecutedTwice) {
 
 	ASSERT_TRUE(resultingTape.equals(createTuringMachine("0000").tape));
 	ASSERT_EQ(turingMachine.head, 3);
-}/*
-TEST(FileInteractor, getTuringMashineFromInput) {
+}
+TEST(FileInteractor, getTuringMashineFromInput0txt) {
 	FileInteractor fileInteractor;
 	TuringMachine turingMachineA;
-	turingMachineA.head = -1;
 	turingMachineA  = fileInteractor.getTuringMashineFromFile("0.txt");
-	ASSERT_TRUE(turingMachineA.tape.equals(createTuringMachine("1001001").tape));
+
+	TuringMachine turingMachineB = createTuringMachine("1001001");
+
+	ASSERT_TRUE(turingMachineA.tape.equals(turingMachineB.tape));
 	ASSERT_EQ(turingMachineA.head, 0);
-}*/
+}
+TEST(FileInteractor, getTuringMashineFromInput5txt) {
+	FileInteractor fileInteractor;
+	TuringMachine turingMachineA;
+	turingMachineA = fileInteractor.getTuringMashineFromFile("5.txt");
+
+	TuringMachine turingMachineB = createTuringMachine("10");
+
+	ASSERT_TRUE(turingMachineA.tape.equals(turingMachineB.tape));
+	ASSERT_EQ(turingMachineA.head, -1);
+}

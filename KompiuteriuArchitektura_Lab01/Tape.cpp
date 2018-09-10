@@ -38,6 +38,8 @@ void Tape::setCharacterValueAtPosition(int position, char value) {
 }
 
 bool Tape::equals(Tape tape) {
+	if (tape.characters.size() != characters.size())
+		return false;
 	for (int i = 0; i < characters.size(); i++) {
 		if (!characters[i].equals(tape.characters[i])) {
 			return false;
@@ -53,7 +55,7 @@ std::string Tape::getAsString() {
 	std::vector<int> positions = getCharactersPositions();
 	for (int i = 0; i < positions.size(); i++) {
 		int iPlus = i + 1;
-		string.push_back(tape.getCharacterAtPosition(positions[i]).value);
+		string.push_back(tape.getCharacterAtPosition(positions[i]).value);//to mutch 
 		if (iPlus < positions.size()) {
 			int n = positions[iPlus] - positions[i] - 1;
 			for (int j = 0; j < n; j++) {

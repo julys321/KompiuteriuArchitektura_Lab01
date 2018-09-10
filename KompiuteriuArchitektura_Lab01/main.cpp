@@ -7,9 +7,9 @@
 #include "../KompiuteriuArchitektura_Lab01/FileInteractor.h"
 int main()
 {
-	/*FileInteractor fileInteractor;
-	TuringMachine turingMachineA;
-	turingMachineA.head = -1;
-	turingMachineA = fileInteractor.getTuringMashineFromFile("../KompiuteriuArchitektura_Lab01Tets/inputDataMock.txt");*/
-	std::cout << "Hello world!\n";
+	FileInteractor fileInteractor;
+	TuringMachine turingMachine;
+	turingMachine = fileInteractor.getTuringMashineFromFile("5.txt");
+//	turingMachine.run(fileInteractor.getProgramFromFile("0.txt"));
+	std::cout << turingMachine.tape.getAsString() << "\n";
 }
