@@ -8,10 +8,15 @@
 #include "../KompiuteriuArchitektura_Lab01/FileInteractor.h"
 int main()
 {
+	std::string fileName = "2.txt";
 	FileInteractor fileInteractor;
 	TuringMachine turingMachine;
-	turingMachine = fileInteractor.getTuringMashineFromFile("5.txt");
+	Program program;
 
-//	turingMachine.run(fileInteractor.getProgramFromFile("0.txt"));
-	std::cout << turingMachine.tape.getAsString() << "\n";
+	turingMachine = fileInteractor.getTuringMashineFromFile(fileName);
+	program = fileInteractor.getProgramFromFile(fileName);
+
+	turingMachine.run(program);
+	//turingMachine.runStepByStep(program);
+	return 0;
 }
