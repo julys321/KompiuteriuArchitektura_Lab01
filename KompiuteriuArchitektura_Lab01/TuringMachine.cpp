@@ -1,7 +1,6 @@
 #include "TuringMachine.h"
-
-
-
+#include <iostream>
+#include <windows.h>
 TuringMachine::TuringMachine() {
 }
 
@@ -17,24 +16,51 @@ void TuringMachine::runLine(InstructionLine instructionLine) {
 			head++;
 		else if (instructionLine.headMovementDirection == 'l')
 			head--;
+		tape.getCharacterAtPosition(head);
 	}
 }
+void TuringMachine::makeStep(Program program) {
+	system("cls");
+	InstructionLine instructionLine;
+	try {
+		instructionLine = program.findInstructionline(tape.getCharacterAtPosition(head).value, state);
+	}
+	catch (std::string message) {
+		throw message;
+	}
+	runLine(instructionLine);
+	state = instructionLine.nextState;
+	std::cout << tape.getAsString() << "\n";
+	std::cout << getHeadString() << "\n";
+	Sleep(120);
+}
 
-Tape TuringMachine::run(Program program) {//needs to made into make step function
+void TuringMachine::run(Program program) {
 	if (program.instructionLines.size() > 0) {
-		std::string state = "0";
 		for (int i = 0; state != "Halt"; i++) {
-			std::vector<InstructionLine> linesOfCurrentState = program.getLinesOfState(state);
-			for (InstructionLine instructionLine : linesOfCurrentState) {
-				if (tape.getCharacterAtPosition(head).value == instructionLine.currentSymbol) {
-					runLine(instructionLine);
-					state = instructionLine.nextState;
-					break;
-				}
+			try {
+				makeStep(program);
+			}
+			catch (std::string message) {
+				std::cout << message;
+				return;
 			}
 		}
 	}
-	return this->tape;
+}
+
+std::string TuringMachine::getHeadString() {
+	std::string string;
+	std::vector<int> positions = tape.getCharactersPositions();
+	int front = positions.front();
+	int back = positions.back();
+	for (int i = positions.front(); i <= positions.back(); i++) {
+		if (head == i)
+			string.push_back('^');
+		else
+			string.push_back('_');
+	}
+	return string;
 }
 
 

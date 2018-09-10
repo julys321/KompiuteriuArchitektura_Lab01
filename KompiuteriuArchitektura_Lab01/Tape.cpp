@@ -22,13 +22,11 @@ Character Tape::getCharacterAtPosition(int position) {
 			return character;
 		}
 	}
+	setCharacterValueAtPosition(position, '_');
 	return Character(position, '_');
 }
 
 void Tape::setCharacterValueAtPosition(int position, char value) {
-	if (getCharacterAtPosition(position).value == '_')
-		characters.push_back(Character(position, value));
-	else
 		for (int i = 0; i < characters.size(); i++) {
 			if (characters[i].position == position) {
 				characters[i].position = position;

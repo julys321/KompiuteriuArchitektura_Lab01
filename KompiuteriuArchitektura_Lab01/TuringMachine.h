@@ -8,9 +8,12 @@ class TuringMachine
 public:
 	Tape tape;
 	int head = 0;
+	std::string state = "0";
 	TuringMachine();
 	~TuringMachine();
 	void runLine(InstructionLine instructionLine);
-	Tape run(Program program);
+	void makeStep(Program program);
+	void run(Program program);
+	std::string getHeadString();
 };
 
