@@ -18,3 +18,6 @@ std::vector<InstructionLine> Program::getLinesOfState(std::string state){
 			linesOfState.push_back(instructionLine);
 	return linesOfState;
 }
+bool Program::equals(Program program) {
+	return false;
+}

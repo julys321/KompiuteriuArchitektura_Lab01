@@ -34,6 +34,18 @@ TEST(InstructionLine, conststructorOnes) {
 	ASSERT_EQ(instructionLine.headMovementDirection, '*');
 	ASSERT_EQ(instructionLine.nextState, "01");
 }
+TEST(InstructionLine, equals) {
+	InstructionLine instructionLineA("01", '1', '1', '*', "01");
+	InstructionLine instructionLineB("01", '1', '1', '*', "01");
+
+	ASSERT_TRUE(instructionLineA.equals(instructionLineB));
+}
+TEST(InstructionLine, notEquals) {
+	InstructionLine instructionLineA("01", '1', '1', '*', "05");
+	InstructionLine instructionLineB("01", '1', '1', '*', "01");
+
+	ASSERT_FALSE(instructionLineA.equals(instructionLineB));
+}
 TEST(Character, constructor) {
 	Character character(0, '0');
 	ASSERT_EQ(character.position, 0);
@@ -212,6 +224,18 @@ TEST(Program, getLinesOfState) {
 
 	ASSERT_EQ(linesOfState.size(), 2);
 }
+TEST(Program, equals) {
+	Program programA;
+	programA.instructionLines.push_back(InstructionLine("0", '0', '0', 'r', "0"));
+	programA.instructionLines.push_back(InstructionLine("0", '1', '0', 'l', "0"));
+	programA.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
+	Program programB;
+	programB.instructionLines.push_back(InstructionLine("0", '0', '0', 'r', "0"));
+	programB.instructionLines.push_back(InstructionLine("0", '1', '0', 'l', "0"));
+	programB.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
+
+	ASSERT_TRUE(programA.equals(programB));
+}
 TEST(TuringMachineRun, emptyProgram) {
 	TuringMachine turingMachine = createTuringMachine("B00");
 	Program program;
@@ -266,23 +290,48 @@ TEST(TuringMachineRun, programWhereOneLineNeedsToBeExecutedTwice) {
 	ASSERT_TRUE(resultingTape.equals(createTuringMachine("0000").tape));
 	ASSERT_EQ(turingMachine.head, 3);
 }
-TEST(FileInteractor, getTuringMashineFromInput0txt) {
+TEST(FileInteractor, getTuringMashineFromStringStream1001001) {
 	FileInteractor fileInteractor;
 	TuringMachine turingMachineA;
-	turingMachineA  = fileInteractor.getTuringMashineFromFile("0.txt");
+	std::stringstream stringstream("0\n1001001\n0 0 _ r 1o");
+	turingMachineA  = fileInteractor.getTuringMashineFromStream(stringstream);
 
 	TuringMachine turingMachineB = createTuringMachine("1001001");
 
 	ASSERT_TRUE(turingMachineA.tape.equals(turingMachineB.tape));
 	ASSERT_EQ(turingMachineA.head, 0);
 }
-TEST(FileInteractor, getTuringMashineFromInput5txt) {
+TEST(FileInteractor, getTuringMashineFromStringStream10) {
 	FileInteractor fileInteractor;
 	TuringMachine turingMachineA;
-	turingMachineA = fileInteractor.getTuringMashineFromFile("5.txt");
+	std::stringstream stringstream("-1\n10\n0 _ 1 r Halt");
+	turingMachineA = fileInteractor.getTuringMashineFromStream(stringstream);
 
 	TuringMachine turingMachineB = createTuringMachine("10");
 
 	ASSERT_TRUE(turingMachineA.tape.equals(turingMachineB.tape));
 	ASSERT_EQ(turingMachineA.head, -1);
+}
+TEST(FileInteractor, getProgramFromStream00_r1o) {
+	FileInteractor fileInteractor;
+	TuringMachine turingMachineA;
+	Program programA;
+	std::stringstream stringstream("0\n1001001\n0 0 _ r 1o");
+	programA = fileInteractor.getProgramFromStream(stringstream);
+
+	Program programB;
+	programB.instructionLines.push_back(InstructionLine("0", '0', '_', 'r', "1o"));
+	ASSERT_TRUE(false);
+	//ASSERT_TRUE(programA.equals(programB));
+}
+TEST(FileInteractor, getProgramFromStream0_1rHalt) {
+	FileInteractor fileInteractor;
+	Program programA;
+	std::stringstream stringstream("-1\n10\n0 _ 1 r Halt");
+	programA = fileInteractor.getProgramFromStream(stringstream);
+
+	Program programB;
+	programB.instructionLines.push_back(InstructionLine("0", '_', '1', 'r', "Halt"));
+	ASSERT_TRUE(false);
+	//ASSERT_TRUE(programA.equals(programB));
 }

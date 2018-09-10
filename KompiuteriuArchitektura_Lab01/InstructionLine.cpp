@@ -18,3 +18,17 @@ InstructionLine::InstructionLine(std::string currentState, char currentSymbol, c
 InstructionLine::~InstructionLine()
 {
 }
+
+bool InstructionLine::equals(InstructionLine instructionLine) {
+	if (this->currentState==instructionLine.currentState)
+		return false;
+	if (this->currentSymbol != instructionLine.currentSymbol)
+		return false;
+	if (this->nextSymbol != instructionLine.nextSymbol)
+		return false;
+	if (this->headMovementDirection != instructionLine.headMovementDirection)
+		return false;
+	if (this->nextState==instructionLine.nextState)
+		return false;
+	return true;
+}

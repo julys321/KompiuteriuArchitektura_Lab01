@@ -1,5 +1,6 @@
 #include "FileInteractor.h"
 #include <fstream>
+#include <sstream>
 
 
 FileInteractor::FileInteractor()
@@ -11,21 +12,31 @@ FileInteractor::~FileInteractor()
 {
 }
 
-TuringMachine FileInteractor::getTuringMashineFromFile(std::string fileName){
+TuringMachine FileInteractor::getTuringMashineFromStream(std::stringstream& in){
 	TuringMachine turingMachine;
 	std::string tape;
-	std::ifstream in(fileName);
 	in>>turingMachine.head;
 	in >> tape;
-	in.close();
 	turingMachine.tape.fill(tape);
 	return turingMachine;
 }
-
-Program FileInteractor::getProgramFromFile(std::string fileName){
+TuringMachine FileInteractor::getTuringMashineFromFile(std::string fileName){
+	std::ifstream in(fileName);
+	std::stringstream buffer;
+	if (in) {
+		buffer << in.rdbuf();
+		in.close();
+	}
+	return getTuringMashineFromStream(buffer);
+}
+Program FileInteractor::getProgramFromStream(std::stringstream & in)
+{
+	return Program();
+}
+/*
+Program FileInteractor::getProgramFromStream(std::istream in){
 	Program program;
 	std::string temp;
-	std::ifstream in(fileName);
 	getline(in, temp);
 	getline(in, temp);
 	while (!in.eof()) {
@@ -37,6 +48,5 @@ Program FileInteractor::getProgramFromFile(std::string fileName){
 		in >> instructionLine.nextState;
 		program.instructionLines.push_back(instructionLine);
 	}
-	in.close();
 	return program;
-}
+}*/

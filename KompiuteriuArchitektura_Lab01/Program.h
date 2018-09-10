@@ -8,5 +8,6 @@ public:
 	Program();
 	~Program();
 	std::vector<InstructionLine> getLinesOfState(std::string state);
+	bool equals(Program program);
 };
 
