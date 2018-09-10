@@ -28,3 +28,13 @@ bool Program::equals(Program program) {
 	}
 	return true;
 }
+InstructionLine Program::findInstructionline(char currentCharacter,std::string state) {//TODO: unit tests
+	for (InstructionLine instructionLine : instructionLines) {
+		if (currentCharacter == instructionLine.currentSymbol && (state.compare(instructionLine.currentState) == 0)) {
+			return instructionLine;
+		}
+	}
+	std::string string;
+	string.push_back(currentCharacter);
+	throw  "No instructions exist for state: " + state + " character at head: " + string + "\n";
+}
