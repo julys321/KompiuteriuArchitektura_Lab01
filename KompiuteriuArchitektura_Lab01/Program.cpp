@@ -19,5 +19,12 @@ std::vector<InstructionLine> Program::getLinesOfState(std::string state){
 	return linesOfState;
 }
 bool Program::equals(Program program) {
-	return false;
+	if (program.instructionLines.size() != instructionLines.size())
+		return false;
+	for (int i = 0; i < instructionLines.size(); i++) {
+		if (!instructionLines[i].equals(program.instructionLines[i])) {
+			return false;
+		}
+	}
+	return true;
 }

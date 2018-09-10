@@ -20,7 +20,7 @@ InstructionLine::~InstructionLine()
 }
 
 bool InstructionLine::equals(InstructionLine instructionLine) {
-	if (this->currentState==instructionLine.currentState)
+	if (this->currentState.compare(instructionLine.currentState) != 0)
 		return false;
 	if (this->currentSymbol != instructionLine.currentSymbol)
 		return false;
@@ -28,7 +28,7 @@ bool InstructionLine::equals(InstructionLine instructionLine) {
 		return false;
 	if (this->headMovementDirection != instructionLine.headMovementDirection)
 		return false;
-	if (this->nextState==instructionLine.nextState)
+	if (this->nextState.compare(instructionLine.nextState) != 0)
 		return false;
 	return true;
 }
