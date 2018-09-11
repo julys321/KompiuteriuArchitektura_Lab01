@@ -8,7 +8,11 @@
 #include "../KompiuteriuArchitektura_Lab01/FileInteractor.h"
 int main()
 {
-	std::string fileName = "2.txt";
+	Tape tape;
+	tape.setCharacterValueAtPosition(-10, 'g');
+	char kappa = tape.getCharacterAtPosition(-10).value;
+	//test bit
+	std::string fileName = "1.txt";
 	FileInteractor fileInteractor;
 	TuringMachine turingMachine;
 	Program program;
@@ -17,6 +21,5 @@ int main()
 	program = fileInteractor.getProgramFromFile(fileName);
 
 	turingMachine.run(program);
-	//turingMachine.runStepByStep(program);
 	return 0;
 }

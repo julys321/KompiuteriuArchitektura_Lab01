@@ -31,8 +31,10 @@ void Tape::setCharacterValueAtPosition(int position, char value) {
 			if (characters[i].position == position) {
 				characters[i].position = position;
 				characters[i].value = value;
+				return;
 			}
 		}
+		characters.push_back(Character(position, value));
 }
 
 bool Tape::equals(Tape tape) {

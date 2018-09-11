@@ -2,7 +2,6 @@
 #include "../KompiuteriuArchitektura_Lab01/TuringMachine.cpp"
 #include "../KompiuteriuArchitektura_Lab01/InstructionLine.cpp"
 #include "../KompiuteriuArchitektura_Lab01/Tape.cpp"
-#include "../KompiuteriuArchitektura_Lab01/Character.cpp"
 #include "../KompiuteriuArchitektura_Lab01/Program.cpp"
 #include "../KompiuteriuArchitektura_Lab01/FileInteractor.cpp"
 #include <vector>
@@ -45,22 +44,6 @@ TEST(InstructionLine, notEquals) {
 	InstructionLine instructionLineB("01", '1', '1', '*', "01");
 
 	ASSERT_FALSE(instructionLineA.equals(instructionLineB));
-}
-TEST(Character, constructor) {
-	Character character(0, '0');
-	ASSERT_EQ(character.position, 0);
-	ASSERT_EQ(character.value, '0');
-}
-TEST(Character, equal) {
-	Character character(0, '0');
-	ASSERT_TRUE(character.equals(character));
-}
-TEST(Character, notEqual) {
-	Character characterA(0, '0');
-	Character characterB(1, '0');
-	Character characterC(0, '1');
-	ASSERT_FALSE(characterA.equals(characterB));
-	ASSERT_FALSE(characterA.equals(characterC));
 }
 TEST(TuringMachine, headStartsAtZero) {
 	TuringMachine turingMachine;
