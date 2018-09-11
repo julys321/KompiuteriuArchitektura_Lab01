@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "../KompiuteriuArchitektura_Lab01/Character.cpp"
 
-
 TEST(Character, constructor) {
 	Character character(0, '0');
 	ASSERT_EQ(character.position, 0);
