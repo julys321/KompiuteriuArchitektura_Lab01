@@ -4,6 +4,7 @@
     <ClCompile Include="TuringMachineTest.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="CharacterTest.cpp" />
+    <ClCompile Include="InstructionLineTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
