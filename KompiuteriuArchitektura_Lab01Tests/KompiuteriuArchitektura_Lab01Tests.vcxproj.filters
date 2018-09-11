@@ -7,6 +7,7 @@
     <ClCompile Include="InstructionLineTest.cpp" />
     <ClCompile Include="TapeTest.cpp" />
     <ClCompile Include="ProgramTest.cpp" />
+    <ClCompile Include="FileInteractorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

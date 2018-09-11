@@ -20,7 +20,6 @@ void TuringMachine::runLine(InstructionLine instructionLine) {
 	}
 }
 void TuringMachine::makeStep(Program program) {
-	system("cls");
 	InstructionLine instructionLine;
 	try {
 		instructionLine = program.findInstructionline(tape.getCharacterAtPosition(head).value, state);
@@ -32,12 +31,12 @@ void TuringMachine::makeStep(Program program) {
 	state = instructionLine.nextState;
 	std::cout << tape.getAsString() << "\n";
 	std::cout << getHeadString() << "\n";
-	Sleep(120);
 }
 
 void TuringMachine::run(Program program) {
 	if (program.instructionLines.size() > 0) {
 		for (int i = 0; state != "Halt"; i++) {
+			system("cls");
 			try {
 				makeStep(program);
 			}
@@ -45,6 +44,7 @@ void TuringMachine::run(Program program) {
 				std::cout << message;
 				return;
 			}
+			Sleep(120);
 		}
 	}
 }

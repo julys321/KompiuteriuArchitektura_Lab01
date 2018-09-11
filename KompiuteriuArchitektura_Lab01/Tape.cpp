@@ -1,13 +1,13 @@
 #include "Tape.h"
 #include <algorithm>
 
-Tape::Tape()
-{
+Tape::Tape(){
+}
+Tape::Tape(std::string characters) {
+	fill(characters);
 }
 
-
-Tape::~Tape()
-{
+Tape::~Tape(){
 }
 
 void Tape::fill(std::string characters) {
@@ -40,8 +40,9 @@ void Tape::setCharacterValueAtPosition(int position, char value) {
 bool Tape::equals(Tape tape) {
 	if (tape.characters.size() != characters.size())
 		return false;
-	for (int i = 0; i < characters.size(); i++) {
-		if (!characters[i].equals(tape.characters[i])) {
+	for (int i = tape.characters.front().position; i < characters.back().position; i++) {
+		
+		if (!getCharacterAtPosition(i).equals(tape.getCharacterAtPosition(i))) {
 			return false;
 		}
 	}

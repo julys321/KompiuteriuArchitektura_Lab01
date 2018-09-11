@@ -2,12 +2,20 @@
 #include "../KompiuteriuArchitektura_Lab01/Tape.cpp"
 #include "../KompiuteriuArchitektura_Lab01/TuringMachine.cpp"
 
+TEST(Tape, constructorFromString) {
+	Tape tape;
+	tape.characters.push_back(Character(2, 'i'));
+	tape.characters.push_back(Character(1, 'a'));
+	tape.characters.push_back(Character(0, 'r'));
+
+	ASSERT_TRUE(Tape("rai").equals(tape));
+}
 TEST(Tape, getCharacterValueAtPosition) {
 	TuringMachine turingMachine;
 	turingMachine.tape.characters.push_back(Character(2, 'i'));
 
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, 'i');
-}
+}/*
 TEST(Tape, getEmptyCharacterValue) {
 	TuringMachine turingMachine;
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '_');
@@ -54,6 +62,14 @@ TEST(Tape, equal) {
 
 	ASSERT_TRUE(tapeA.equals(tapeB));
 }
+TEST(Tape, equal_rai) {
+	Tape tape;
+	tape.characters.push_back(Character(2, 'i'));
+	tape.characters.push_back(Character(1, 'a'));
+	tape.characters.push_back(Character(0, 'r'));
+
+	ASSERT_TRUE(Tape("rai").equals(tape));
+}
 TEST(Tape, notEqualEmptyTape) {
 	Tape tapeA;
 	Tape tapeB;
@@ -86,4 +102,4 @@ TEST(Tape, convertToString) {
 	tape.setCharacterValueAtPosition(-2, 'k');
 
 	ASSERT_EQ(tape.getAsString(), "k_AD0");
-}
+}*/

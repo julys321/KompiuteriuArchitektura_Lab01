@@ -8,10 +8,6 @@
 #include "../KompiuteriuArchitektura_Lab01/FileInteractor.h"
 int main()
 {
-	Tape tape;
-	tape.setCharacterValueAtPosition(-10, 'g');
-	char kappa = tape.getCharacterAtPosition(-10).value;
-	//test bit
 	std::string fileName = "1.txt";
 	FileInteractor fileInteractor;
 	TuringMachine turingMachine;
