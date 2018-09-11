@@ -47,6 +47,7 @@
     </ClCompile>
     <ClCompile Include="ProgramTest.cpp" />
     <ClCompile Include="TapeTest.cpp" />
+    <ClCompile Include="TuringMachineFactoryTest.cpp" />
     <ClCompile Include="TuringMachineTest.cpp" />
   </ItemGroup>
   <ItemGroup>

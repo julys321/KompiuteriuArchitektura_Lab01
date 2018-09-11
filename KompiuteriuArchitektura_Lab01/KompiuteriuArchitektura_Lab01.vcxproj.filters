@@ -39,6 +39,9 @@
     <ClCompile Include="FileInteractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TuringMachineFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TuringMachine.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileInteractor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TuringMachineFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

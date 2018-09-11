@@ -36,5 +36,5 @@ InstructionLine Program::findInstructionline(char currentCharacter,std::string s
 	}
 	std::string string;
 	string.push_back(currentCharacter);
-	throw  "No instructions exist for state: " + state + " character at head: " + string + "\n";
+	throw  "Exception cought at findInstructionline: No instructions exist for state: " + state + " character at head: " + string + "\n";
 }

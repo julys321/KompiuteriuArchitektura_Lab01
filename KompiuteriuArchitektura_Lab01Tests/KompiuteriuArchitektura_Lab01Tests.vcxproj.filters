@@ -8,6 +8,7 @@
     <ClCompile Include="TapeTest.cpp" />
     <ClCompile Include="ProgramTest.cpp" />
     <ClCompile Include="FileInteractorTest.cpp" />
+    <ClCompile Include="TuringMachineFactoryTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -125,6 +125,7 @@
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Tape.cpp" />
     <ClCompile Include="TuringMachine.cpp" />
+    <ClCompile Include="TuringMachineFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileInteractor.h" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Program.h" />
     <ClInclude Include="Tape.h" />
     <ClInclude Include="TuringMachine.h" />
+    <ClInclude Include="TuringMachineFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="1 lecture.pdf" />
