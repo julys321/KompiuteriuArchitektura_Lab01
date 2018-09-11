@@ -64,7 +64,7 @@ TEST(TuringMachineRunLine, leaveBAsB) {
 }
 TEST(TuringMachineRunLine, moveHeadRight) {
 	TuringMachine turingMachine;
-	InstructionLine instructionLine("0", 'B', '*', 'r', "0");
+	InstructionLine instructionLine("0", 'B', '*', 'R', "0");
 
 	turingMachine.runLine(instructionLine);
 
@@ -72,7 +72,7 @@ TEST(TuringMachineRunLine, moveHeadRight) {
 }
 TEST(TuringMachineRunLine, moveHeadLeft) {
 	TuringMachine turingMachine;
-	InstructionLine instructionLine("0", 'B', '*', 'l', "0");
+	InstructionLine instructionLine("0", 'B', '*', 'L', "0");
 
 	turingMachine.runLine(instructionLine);
 
@@ -88,8 +88,8 @@ TEST(TuringMachineRunLine, headStaysInPlace) {
 }
 TEST(Program, getLinesOfState) {
 	Program program;
-	program.instructionLines.push_back(InstructionLine("0", '0', '0', 'r', "0"));
-	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'l', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '0', '0', 'R', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'L', "0"));
 	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	std::vector<InstructionLine> linesOfState = program.getLinesOfState("0");
@@ -109,7 +109,7 @@ TEST(TuringMachineRun, oneLineProgram) {
 	TuringMachine turingMachine;
 	turingMachine.tape.fill("B00");
 	Program program;
-	program.instructionLines.push_back(InstructionLine("0", 'B', 'A', 'r', "Halt"));
+	program.instructionLines.push_back(InstructionLine("0", 'B', 'A', 'R', "Halt"));
 
 	TuringMachine expectedTuringMachine;
 	expectedTuringMachine.tape.fill("A00");
@@ -123,8 +123,8 @@ TEST(TuringMachineRun, twoLineProgramSameState) {
 	TuringMachine turingMachine;
 	turingMachine.tape.fill("010");
 	Program program;
-	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'r', "0"));
-	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'r', "Halt"));
+	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'R', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'R', "Halt"));
 
 	turingMachine.run(program);
 
@@ -135,8 +135,8 @@ TEST(TuringMachineRun, twoLineProgramDiffState) {
 	TuringMachine turingMachine;
 	turingMachine.tape.fill("010");
 	Program program;
-	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'r', "1"));
-	program.instructionLines.push_back(InstructionLine("1", '1', '0', 'r', "Halt"));
+	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'R', "1"));
+	program.instructionLines.push_back(InstructionLine("1", '1', '0', 'R', "Halt"));
 
 	turingMachine.run(program);
 
@@ -147,9 +147,9 @@ TEST(TuringMachineRun, programWhereOneLineNeedsToBeExecutedTwice) {
 	TuringMachine turingMachine;
 	turingMachine.tape.fill("01BA");
 	Program program;
-	program.instructionLines.push_back(InstructionLine("0", '0', '0', 'r', "0"));
-	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'l', "0"));
-	program.instructionLines.push_back(InstructionLine("0", 'B', '0', 'r', "1"));
+	program.instructionLines.push_back(InstructionLine("0", '0', '0', 'R', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'L', "0"));
+	program.instructionLines.push_back(InstructionLine("0", 'B', '0', 'R', "1"));
 	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	turingMachine.run(program);
@@ -161,7 +161,7 @@ TEST(TuringMachine, MakeStep) {
 	TuringMachine turingMachine;
 	turingMachine.tape.fill("0A00");
 	Program program;
-	program.instructionLines.push_back(InstructionLine("0", '0', 'B', 'r', "1"));
+	program.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
 	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	turingMachine.makeStep(program);
@@ -173,8 +173,8 @@ TEST(TuringMachine, MakeStepTwice) {
 	TuringMachine turingMachine;
 	turingMachine.tape.fill("0A00");
 	Program program;
-	program.instructionLines.push_back(InstructionLine("0", '0', 'B', 'r', "1"));
-	program.instructionLines.push_back(InstructionLine("1", 'A', '0', 'r', "Halt"));
+	program.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
+	program.instructionLines.push_back(InstructionLine("1", 'A', '0', 'R', "Halt"));
 
 	turingMachine.makeStep(program);
 	turingMachine.makeStep(program);

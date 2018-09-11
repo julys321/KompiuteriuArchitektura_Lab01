@@ -15,7 +15,7 @@ TEST(Tape, getCharacterValueAtPosition) {
 	turingMachine.tape.characters.push_back(Character(2, 'i'));
 
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, 'i');
-}/*
+}
 TEST(Tape, getEmptyCharacterValue) {
 	TuringMachine turingMachine;
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '_');
@@ -102,4 +102,4 @@ TEST(Tape, convertToString) {
 	tape.setCharacterValueAtPosition(-2, 'k');
 
 	ASSERT_EQ(tape.getAsString(), "k_AD0");
-}*/
+}

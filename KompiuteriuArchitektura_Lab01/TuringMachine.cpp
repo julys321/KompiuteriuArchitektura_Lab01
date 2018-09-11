@@ -12,9 +12,9 @@ void TuringMachine::runLine(InstructionLine instructionLine) {
 	if (instructionLine.nextSymbol != '*')
 		tape.setCharacterValueAtPosition(head, instructionLine.nextSymbol);
 	if (instructionLine.headMovementDirection != '*') {
-		if (instructionLine.headMovementDirection == 'r')//make move head
+		if (instructionLine.headMovementDirection == 'R')//TODO: refactor to moveHead()
 			head++;
-		else if (instructionLine.headMovementDirection == 'l')
+		else if (instructionLine.headMovementDirection == 'L')
 			head--;
 		tape.getCharacterAtPosition(head);
 	}

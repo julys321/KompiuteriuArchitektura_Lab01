@@ -9,12 +9,12 @@ TEST(TuringMachineFactory, makeStepForTwoTuringMachines) {
 	turingMachineB.tape.fill("0A00");
 
 	Program programA;
-	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'r', "1"));
+	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
 	programA.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	Program programB;
-	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'l', "1"));
-	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'r', "Halt"));
+	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'L', "1"));
+	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'R', "Halt"));
 
 	std::vector<Program> programs;
 	programs.push_back(programA);
@@ -39,12 +39,12 @@ TEST(TuringMachineFactory, isAnyProgramStillRunningTrue) {
 	turingMachineB.tape.fill("0A00");
 
 	Program programA;
-	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'r', "1"));
+	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
 	programA.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	Program programB;
-	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'l', "1"));
-	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'r', "Halt"));
+	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'L', "1"));
+	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'R', "Halt"));
 
 	std::vector<Program> programs;
 	programs.push_back(programA);
@@ -65,12 +65,12 @@ TEST(TuringMachineFactory, isAnyProgramStillRunningFalse) {
 	turingMachineB.tape.fill("0A00");
 
 	Program programA;
-	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'r', "1"));
+	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
 	programA.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	Program programB;
-	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'l', "1"));
-	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'r', "Halt"));
+	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'L', "1"));
+	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'R', "Halt"));
 
 	std::vector<Program> programs;
 	programs.push_back(programA);
@@ -92,12 +92,12 @@ TEST(TuringMachineFactory, runTwoTuringMachines) {
 	turingMachineB.tape.fill("0A00");
 
 	Program programA;
-	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'r', "1"));
+	programA.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
 	programA.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	Program programB;
-	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'l', "1"));
-	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'r', "Halt"));
+	programB.instructionLines.push_back(InstructionLine("0", '0', 'A', 'L', "1"));
+	programB.instructionLines.push_back(InstructionLine("1", '_', '0', 'R', "Halt"));
 
 	std::vector<Program> programs;
 	programs.push_back(programA);
