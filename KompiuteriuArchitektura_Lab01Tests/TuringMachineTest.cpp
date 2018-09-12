@@ -40,28 +40,6 @@ TEST(TuringMachineRunLine, changeZeroToOne) {
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
 	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
 }
-TEST(TuringMachineRunLine, leaveZeroAsZero) {
-	TuringMachine turingMachine;
-	turingMachine.tape.fill( "000");
-	InstructionLine instructionLine("0", '0', '*', '*', "0");
-
-	turingMachine.runLine(instructionLine);
-
-	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, '0');
-	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
-	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
-}
-TEST(TuringMachineRunLine, leaveBAsB) {
-	TuringMachine turingMachine;
-	turingMachine.tape.fill("B00");
-	InstructionLine instructionLine("0", 'B', '*', '*', "0");
-
-	turingMachine.runLine(instructionLine);
-
-	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(0).value, 'B');
-	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(1).value, '0');
-	ASSERT_EQ(turingMachine.tape.getCharacterAtPosition(2).value, '0');
-}
 TEST(TuringMachineRunLine, moveHeadRight) {
 	TuringMachine turingMachine;
 	InstructionLine instructionLine("0", 'B', '*', 'R', "0");
@@ -162,18 +140,6 @@ TEST(TuringMachine, MakeStep) {
 	turingMachine.tape.fill("0A00");
 	Program program;
 	program.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
-	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
-
-	turingMachine.makeStep(program);
-
-	ASSERT_TRUE(turingMachine.tape.equals(Tape("BA00")));
-	ASSERT_EQ(turingMachine.head, 1);
-}
-TEST(TuringMachine, MakeStepCurrentCharacterStar) {
-	TuringMachine turingMachine;
-	turingMachine.tape.fill("0A00");
-	Program program;
-	program.instructionLines.push_back(InstructionLine("0", '*', 'B', 'R', "1"));
 	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	turingMachine.makeStep(program);

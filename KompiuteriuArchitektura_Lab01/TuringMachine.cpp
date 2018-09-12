@@ -9,8 +9,7 @@ TuringMachine::~TuringMachine() {
 }
 
 void TuringMachine::runLine(InstructionLine instructionLine) {
-	if (instructionLine.nextSymbol != '*')
-		tape.setCharacterValueAtPosition(head, instructionLine.nextSymbol);
+	tape.setCharacterValueAtPosition(head, instructionLine.nextSymbol);
 	if (instructionLine.headMovementDirection != '*') {
 		if (instructionLine.headMovementDirection == 'R')//TODO: refactor to moveHead()
 			head++;

@@ -34,12 +34,6 @@ InstructionLine Program::findInstructionline(char currentCharacter,std::string s
 			return instructionLine;
 		}
 	}
-	//now check for star
-	for (InstructionLine instructionLine : instructionLines) {
-		if (instructionLine.currentSymbol == '*' && (state.compare(instructionLine.currentState) == 0)) {
-			return instructionLine;
-		}
-	}
 	std::string string;
 	string.push_back(currentCharacter);
 	throw  "Exception cought at findInstructionline: No instructions exist for state: " + state + " character at head: " + string + "\n";

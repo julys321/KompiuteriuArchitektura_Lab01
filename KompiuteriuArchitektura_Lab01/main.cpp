@@ -41,7 +41,7 @@ void runOneFile(std::string fileName, bool requareUserInputToContinue) {
 }
 void runAllFiles(bool requareUserInputToContinue) {
 	FileInteractor fileInteractor;
-	std::string fileNameA = "0.txt";
+	std::string fileNameA = "1.txt";
 	TuringMachine turingMachineA;
 	Program programA;
 
