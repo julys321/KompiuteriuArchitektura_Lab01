@@ -13,7 +13,7 @@ public:
 	~TuringMachine();
 	void runLine(InstructionLine instructionLine);
 	void makeStep(Program program);
-	void run(Program program);
+	void run(Program program, bool requareUserInputToContinue);
 	std::string getHeadString();
 };
 

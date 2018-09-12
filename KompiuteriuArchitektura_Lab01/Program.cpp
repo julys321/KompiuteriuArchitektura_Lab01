@@ -28,9 +28,15 @@ bool Program::equals(Program program) {
 	}
 	return true;
 }
-InstructionLine Program::findInstructionline(char currentCharacter,std::string state) {//TODO: unit tests
+InstructionLine Program::findInstructionline(char currentCharacter,std::string state) {//TODO: unit tests, i left this undone since this a reminder - by not having unit tests i had to debug a lot this part
 	for (InstructionLine instructionLine : instructionLines) {
 		if (currentCharacter == instructionLine.currentSymbol && (state.compare(instructionLine.currentState) == 0)) {
+			return instructionLine;
+		}
+	}
+	//now check for star
+	for (InstructionLine instructionLine : instructionLines) {
+		if (instructionLine.currentSymbol == '*' && (state.compare(instructionLine.currentState) == 0)) {
 			return instructionLine;
 		}
 	}

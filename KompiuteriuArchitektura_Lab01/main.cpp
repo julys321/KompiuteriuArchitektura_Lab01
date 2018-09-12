@@ -7,24 +7,29 @@
 #include "../KompiuteriuArchitektura_Lab01/TuringMachineFactory.h"
 #include "../KompiuteriuArchitektura_Lab01/Character.h"
 #include "../KompiuteriuArchitektura_Lab01/FileInteractor.h"
-void runOneFile(std::string fileName);
-void runAllFiles();
+void runOneFile(std::string fileName, bool requareUserInputToContinue);
+void runAllFiles(bool requareUserInputToContinue);
 int main()
 {
 	std::string userInput;
+	int requareUserInputToContinue;
 	std::cout << "Run all or run one? 0 - all, 1 - one\n";
 	std::cin >> userInput;
 	if (userInput.compare("0") == 0) {
-		runAllFiles();
+		std::cout << "Wait for your input after a step is made? 1 - yes, 0 - no\n";
+		std::cin >> requareUserInputToContinue;
+		runAllFiles(requareUserInputToContinue);
 	}
 	else if (userInput.compare("1") == 0) {
 		std::cout << "Enter file name: //.fileType requared\n";
 		std::cin >> userInput;
-		runOneFile(userInput);
+		std::cout << "Wait for your input after a step is made? 1 - yes, 0 - no\n";
+		std::cin >> requareUserInputToContinue;
+		runOneFile(userInput, requareUserInputToContinue);
 	}
 	return 0;
 }
-void runOneFile(std::string fileName) {
+void runOneFile(std::string fileName, bool requareUserInputToContinue) {
 	FileInteractor fileInteractor;
 	TuringMachine turingMachine;
 	Program program;
@@ -32,11 +37,11 @@ void runOneFile(std::string fileName) {
 	turingMachine = fileInteractor.getTuringMashineFromFile(fileName);
 	program = fileInteractor.getProgramFromFile(fileName);
 
-	turingMachine.run(program);
+	turingMachine.run(program,requareUserInputToContinue);
 }
-void runAllFiles() {
+void runAllFiles(bool requareUserInputToContinue) {
 	FileInteractor fileInteractor;
-	std::string fileNameA = "1.txt";
+	std::string fileNameA = "0.txt";
 	TuringMachine turingMachineA;
 	Program programA;
 
@@ -72,9 +77,9 @@ void runAllFiles() {
 
 	TuringMachineFactory turingMachineFactory;
 	turingMachineFactory.machines.push_back(turingMachineA);
-	turingMachineFactory.machines.push_back(turingMachineA);
 	turingMachineFactory.machines.push_back(turingMachineB);
 	turingMachineFactory.machines.push_back(turingMachineC);
+	turingMachineFactory.machines.push_back(turingMachineD);
 
-	turingMachineFactory.runAllMachines(programs);
+	turingMachineFactory.runAllMachines(programs,requareUserInputToContinue);
 }

@@ -30,7 +30,7 @@ TuringMachineFactory TuringMachineFactory::makeStepForAllMachines(std::vector<Pr
 	return turingMachineFactory;
 }
 
-void TuringMachineFactory::runAllMachines(std::vector<Program> programs) {
+void TuringMachineFactory::runAllMachines(std::vector<Program> programs, bool requareUserInputToContinue) {
 	while (isAnyProgramStillRunning()) {
 		system("cls");
 		try {
@@ -40,7 +40,9 @@ void TuringMachineFactory::runAllMachines(std::vector<Program> programs) {
 			std::cout<< message<<'\n';
 			return;
 		}
-		Sleep(60);
+		Sleep(180);
+		if(requareUserInputToContinue)
+			system("pause");
 	}
 
 }

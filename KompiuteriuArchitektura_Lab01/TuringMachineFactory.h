@@ -8,7 +8,7 @@ public:
 	TuringMachineFactory();
 	~TuringMachineFactory();
 	TuringMachineFactory makeStepForAllMachines(std::vector<Program> programs);
-	void runAllMachines(std::vector<Program> programs);
+	void runAllMachines(std::vector<Program> programs, bool requareUserInputToContinue);
 	bool isAnyProgramStillRunning();
 };
 

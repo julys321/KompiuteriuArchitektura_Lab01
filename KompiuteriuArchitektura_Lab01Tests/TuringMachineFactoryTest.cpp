@@ -107,7 +107,7 @@ TEST(TuringMachineFactory, runTwoTuringMachines) {
 	turingMachineFactory.machines.push_back(turingMachineA);
 	turingMachineFactory.machines.push_back(turingMachineB);
 
-	turingMachineFactory.runAllMachines(programs);
+	turingMachineFactory.runAllMachines(programs, 0);
 
 	ASSERT_TRUE(turingMachineFactory.machines[0].tape.equals(Tape("B000")));
 	ASSERT_EQ(turingMachineFactory.machines[0].head, 1);

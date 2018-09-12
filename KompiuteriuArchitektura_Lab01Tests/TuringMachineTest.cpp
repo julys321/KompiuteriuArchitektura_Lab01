@@ -101,7 +101,7 @@ TEST(TuringMachineRun, emptyProgram) {
 	turingMachine.tape.fill("B00");
 	Program program;
 
-	turingMachine.run(program);
+	turingMachine.run(program, 0);
 
 	ASSERT_TRUE(turingMachine.tape.equals(Tape("B00")));
 }
@@ -114,7 +114,7 @@ TEST(TuringMachineRun, oneLineProgram) {
 	TuringMachine expectedTuringMachine;
 	expectedTuringMachine.tape.fill("A00");
 
-	turingMachine.run(program);
+	turingMachine.run(program, 0);
 
 	ASSERT_TRUE(turingMachine.tape.equals(expectedTuringMachine.tape));
 	ASSERT_EQ(turingMachine.head, 1);
@@ -126,7 +126,7 @@ TEST(TuringMachineRun, twoLineProgramSameState) {
 	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'R', "0"));
 	program.instructionLines.push_back(InstructionLine("0", '1', '0', 'R', "Halt"));
 
-	turingMachine.run(program);
+	turingMachine.run(program, 0);
 
 	ASSERT_TRUE(turingMachine.tape.equals(Tape("100")));
 	ASSERT_EQ(turingMachine.head, 2);
@@ -138,7 +138,7 @@ TEST(TuringMachineRun, twoLineProgramDiffState) {
 	program.instructionLines.push_back(InstructionLine("0", '0', '1', 'R', "1"));
 	program.instructionLines.push_back(InstructionLine("1", '1', '0', 'R', "Halt"));
 
-	turingMachine.run(program);
+	turingMachine.run(program, 0);
 
 	ASSERT_TRUE(turingMachine.tape.equals(Tape("100")));
 	ASSERT_EQ(turingMachine.head, 2);
@@ -152,7 +152,7 @@ TEST(TuringMachineRun, programWhereOneLineNeedsToBeExecutedTwice) {
 	program.instructionLines.push_back(InstructionLine("0", 'B', '0', 'R', "1"));
 	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
-	turingMachine.run(program);
+	turingMachine.run(program,0);
 
 	ASSERT_TRUE(turingMachine.tape.equals(Tape("0000")));
 	ASSERT_EQ(turingMachine.head, 3);
@@ -162,6 +162,18 @@ TEST(TuringMachine, MakeStep) {
 	turingMachine.tape.fill("0A00");
 	Program program;
 	program.instructionLines.push_back(InstructionLine("0", '0', 'B', 'R', "1"));
+	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
+
+	turingMachine.makeStep(program);
+
+	ASSERT_TRUE(turingMachine.tape.equals(Tape("BA00")));
+	ASSERT_EQ(turingMachine.head, 1);
+}
+TEST(TuringMachine, MakeStepCurrentCharacterStar) {
+	TuringMachine turingMachine;
+	turingMachine.tape.fill("0A00");
+	Program program;
+	program.instructionLines.push_back(InstructionLine("0", '*', 'B', 'R', "1"));
 	program.instructionLines.push_back(InstructionLine("1", 'A', '0', '*', "Halt"));
 
 	turingMachine.makeStep(program);
@@ -180,5 +192,19 @@ TEST(TuringMachine, MakeStepTwice) {
 	turingMachine.makeStep(program);
 
 	ASSERT_TRUE(turingMachine.tape.equals(Tape("B000")));
+	ASSERT_EQ(turingMachine.head, 2);
+}
+TEST(TuringMachine, MakeStepTwiceCharacterOverStarPriority) {
+	TuringMachine turingMachine;
+	turingMachine.tape.fill("_");
+	Program program;
+
+	program.instructionLines.push_back(InstructionLine("0", '*', 'A', 'L', "0"));
+	program.instructionLines.push_back(InstructionLine("0", '_', '_', 'R', "0"));
+
+	turingMachine.makeStep(program);
+	turingMachine.makeStep(program);
+
+	ASSERT_TRUE(turingMachine.tape.equals(Tape("___")));
 	ASSERT_EQ(turingMachine.head, 2);
 }

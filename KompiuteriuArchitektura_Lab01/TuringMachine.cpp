@@ -33,7 +33,7 @@ void TuringMachine::makeStep(Program program) {
 	std::cout << getHeadString() << "\n";
 }
 
-void TuringMachine::run(Program program) {
+void TuringMachine::run(Program program, bool requareUserInputToContinue) {
 	if (program.instructionLines.size() > 0) {
 		for (int i = 0; state != "Halt"; i++) {
 			system("cls");
@@ -45,6 +45,8 @@ void TuringMachine::run(Program program) {
 				return;
 			}
 			Sleep(120);
+			if (requareUserInputToContinue)
+				system("pause");
 		}
 	}
 }
