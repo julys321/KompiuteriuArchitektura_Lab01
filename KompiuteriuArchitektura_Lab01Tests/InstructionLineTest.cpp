@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/InstructionLine.cpp"
+#include "../Turing-machine/InstructionLine.cpp"
 
 TEST(InstructionLine, conststructorZeroes) {
 	InstructionLine instructionLine("0", '0', '0', '*', "0");

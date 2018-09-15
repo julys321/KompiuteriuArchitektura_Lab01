@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/FileInteractor.cpp"
+#include "../Turing-machine/FileInteractor.cpp"
 TEST(FileInteractor, getTuringMashineFromStringStream1001001) {
 	FileInteractor fileInteractor;
 	TuringMachine turingMachineA;

@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/Tape.cpp"
-#include "../KompiuteriuArchitektura_Lab01/TuringMachine.cpp"
+#include "../Turing-machine/Tape.cpp"
+#include "../Turing-machine/TuringMachine.cpp"
 
 TEST(Tape, constructorFromString) {
 	Tape tape;

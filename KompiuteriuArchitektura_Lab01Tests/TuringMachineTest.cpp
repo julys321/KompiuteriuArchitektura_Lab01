@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/TuringMachine.h"
+#include "../Turing-machine/TuringMachine.h"
 #include <vector>
 
 TEST(TuringMachine, headStartsAtZero) {

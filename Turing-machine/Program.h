@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "../KompiuteriuArchitektura_Lab01/InstructionLine.h"
-#include "../KompiuteriuArchitektura_Lab01/Tape.h"
+#include "../Turing-machine/InstructionLine.h"
+#include "../Turing-machine/Tape.h"
 class Program
 {
 public:

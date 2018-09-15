@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/Character.cpp"
+#include "../Turing-machine/Character.cpp"
 
 TEST(Character, constructor) {
 	Character character(0, '0');

@@ -1,5 +1,6 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/Program.cpp"
+#include "../Turing-machine/Program.cpp"
+
 TEST(Program, equals) {
 	Program programA;
 	programA.instructionLines.push_back(InstructionLine("0", '0', '0', 'R', "0"));

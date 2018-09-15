@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "../KompiuteriuArchitektura_Lab01/TuringMachine.h"
-#include "../KompiuteriuArchitektura_Lab01/TuringMachineFactory.cpp"
+#include "../Turing-machine/TuringMachine.h"
+#include "../Turing-machine/TuringMachineFactory.cpp"
 
 TEST(TuringMachineFactory, makeStepForTwoTuringMachines) {
 	TuringMachine turingMachineA;
