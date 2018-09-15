@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Turing-machine", "Turing-machine\Turing-machine.vcxproj", "{FAEB1D8A-40ED-4A2C-B628-D7B7998B8D23}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KompiuteriuArchitektura_Lab01Tests", "KompiuteriuArchitektura_Lab01Tests\KompiuteriuArchitektura_Lab01Tests.vcxproj", "{3E10A356-F378-4133-908C-ED68E5F4C15A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Turing-machineTests", "Turing-machineTests\Turing-machineTests.vcxproj", "{3E10A356-F378-4133-908C-ED68E5F4C15A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
