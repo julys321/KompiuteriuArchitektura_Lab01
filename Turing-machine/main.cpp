@@ -1,16 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include "../Turing-machine/Tape.h"
-#include "../Turing-machine/Character.h"
-#include "../Turing-machine/TuringMachine.h"
-#include "../Turing-machine/TuringMachineFactory.h"
-#include "../Turing-machine/Character.h"
-#include "../Turing-machine/FileInteractor.h"
+#include "TuringMachineFactory.h"
+#include "FileInteractor.h"
 void runOneFile(std::string fileName, bool requareUserInputToContinue);
 void runAllFiles(bool requareUserInputToContinue);
-int main()
-{
+int main(){
 	std::string userInput;
 	int requareUserInputToContinue;
 	std::cout << "Run all or run one? 0 - all, 1 - one\n";
